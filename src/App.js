@@ -1,30 +1,39 @@
 import { useState } from 'react';
 import './App.css';
-import Container from 'react-bootstrap/Container';
-
 
 
 function App() {
 
-  const [show, setShow] = useState('all');
+  const [show, setShow] = useState([]);
 
-  const handleClick = (val) => {
-    setShow(val);
+  const handleClick = (total) => {
+    setShow(total);
   }
 
+  const handleSubmit = event => {
+    event.preventDefault();
+    const form = event.target;
+    const studentName = form.name.value;
+    const status = form.status.value;
+    const info = [studentName, status];
+    setShow(info)
+    console.log(studentName, status);
+  }
+
+  console.log(show);
 
   return (
     <div className="">
       <div className="container">
         <div className="row justify-content-center mt-5">
-          <h4 className='text-center text-uppercase mb-5'>Problem-1</h4>
+          <h4 className='text-center text-uppercase mb-5'>Solve-1</h4>
           <div className="col-6 ">
-            <form className="row gy-2 gx-3 align-items-center mb-4">
+            <form onSubmit={handleSubmit} className="row gy-2 gx-3 align-items-center mb-4">
               <div className="col-auto">
-                <input type="text" className="form-control" placeholder="Name" />
+                <input name='name' type="text" className="form-control" placeholder="Name" />
               </div>
               <div className="col-auto">
-                <input type="text" className="form-control" placeholder="Status" />
+                <input name='status' type="text" className="form-control" placeholder="Status" />
               </div>
               <div className="col-auto">
                 <button type="submit" className="btn btn-primary">Submit</button>
@@ -52,7 +61,10 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-
+                <>
+                  <th>{show[0]}</th>
+                  <th>{show[1]}</th>
+                </>
               </tbody>
             </table>
           </div>
